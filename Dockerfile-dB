@@ -1,0 +1,8 @@
+# MySQL Server for Observium
+FROM mysql:5.7
+
+LABEL maintainer="e_ben_75-python@yahoo.com" \
+      description="This is the MySQL for Observium" \
+      mysql-version="5.7"
+
+ENV MYSQL_ROOT_PASSWORD="root1234" MYSQL_DATABASE="observium" MYSQL_USER="observeuser" MYSQL_PASSWORD="123456"
