@@ -29,15 +29,21 @@ RUN apt-get update \
     apache2 \
     cron \
     nano \
+    rsyslog \
+    net-tools \
     && apt-get clean \
     && mkdir -p /opt/observium \
     && mkdir /opt/observium/logs \
     && mkdir /opt/observium/rrd
 
+COPY ./rsyslog.conf /etc/
+COPY ./30-observium.conf /etc/rsyslog.d/
+COPY ./50-default.conf /etc/rsyslog.d/
 COPY ./observium-community-latest.tar.gz /opt/
 COPY ./config.php /opt/observium/
 COPY ./observium.conf /etc/apache2/sites-available/
-COPY ./root /var/spool/cron/crontabs/
+COPY ./root-cron /var/spool/cron/crontabs/root
+COPY ./observium_startup /bin/
 
 WORKDIR /opt
     
@@ -48,10 +54,11 @@ RUN tar zxvf observium-community-latest.tar.gz \
     && a2dismod mpm_event \
     && a2enmod mpm_prefork \
     && a2enmod php7.0 \
-    && a2enmod rewrite
-    # && /opt/observium/discovery.php -u \
-    # && /opt/observium/adduser.php root 123456 10
+    && a2enmod rewrite \
+    && chmod 600 /var/spool/cron/crontabs/root \
+    && /etc/init.d/rsyslog start \
+    && /etc/init.d/cron restart
 
-EXPOSE 80 443 514/udp 161/udp 162/udp
+EXPOSE 80 443 514/udp 161/udp 162/udp 69/udp
 
-ENTRYPOINT ["apache2ctl", "-D", "FOREGROUND"]
+ENTRYPOINT ["observium_startup"]

@@ -18,6 +18,9 @@ $config['snmp']['community'] = array("public");
 // Authentication Model
 $config['auth_mechanism'] = "mysql";    // default, other options: ldap, http-auth, please see documentation for config help
 
+// Enable syslog
+$config['enable_syslog'] = 1; // Enable Syslog
+
 // Enable alerter
 // $config['poller-wrapper']['alerter'] = TRUE;
 

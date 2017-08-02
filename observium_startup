@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Description: Startup script for observium contatiner
+# Author: Benjamin P Trachtenberg
+# Contact Info: e_ben_75-python@yahoo.com
+# Version: 1.0.0
+#
+
+/etc/init.d/rsyslog start
+/etc/init.d/cron restart
+apache2ctl -D FOREGROUND

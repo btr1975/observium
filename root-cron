@@ -37,4 +37,3 @@
 
 # Run housekeeping script daily for rrds, ports, orphaned entries in the database and performance data
 47 4 * * * /opt/observium/housekeeping.php -yrptb >> /dev/null 2>&1
-
