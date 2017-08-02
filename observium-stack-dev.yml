@@ -14,3 +14,6 @@ services:
           - 162:162/udp # SNMP Trap
           - 69:69/udp # TFTP
         hostname: observium
+        deploy:
+            restart_policy:
+                condition: on-failure

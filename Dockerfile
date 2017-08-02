@@ -55,9 +55,7 @@ RUN tar zxvf observium-community-latest.tar.gz \
     && a2enmod mpm_prefork \
     && a2enmod php7.0 \
     && a2enmod rewrite \
-    && chmod 600 /var/spool/cron/crontabs/root \
-    && /etc/init.d/rsyslog start \
-    && /etc/init.d/cron restart
+    && chmod 600 /var/spool/cron/crontabs/root
 
 EXPOSE 80 443 514/udp 161/udp 162/udp 69/udp
 

@@ -6,6 +6,19 @@
 # Version: 1.0.0
 #
 
-/etc/init.d/rsyslog start
-/etc/init.d/cron restart
-apache2ctl -D FOREGROUND
+/etc/init.d/rsyslog status > /dev/null
+if [[ $? != 0 ]]; then
+     /etc/init.d/rsyslog start > /dev/null
+fi
+
+/etc/init.d/cron status > /dev/null
+if [[ $? != 0 ]]; then
+     /etc/init.d/cron restart > /dev/null
+fi
+
+/etc/init.d/apache2 status > /dev/null
+if [[ $? != 0 ]]; then
+    apache2ctl -D FOREGROUND
+else
+    apache2ctl restart
+fi
